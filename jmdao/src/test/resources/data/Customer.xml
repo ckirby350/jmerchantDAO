@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <customer custid="1" addr1="100 Oak Street" addr2="[null]" city="Arlington" country="US" email="bsmith123@gmail.com"
+    		firstname="Robert" lastname="Smith" nickname="Bob" phone1="9728675309" phone2="[null]" phone3="[null]" 
+    		postcode="75028" stateprov="TX" dob="1970-03-22" 
+            createdt="2019-01-31 11:59:59"/>
+    <customer custid="2" addr1="1215 Lemon Drive" addr2="Apt. 105" city="Grand Prairie" country="US" email="janderson999@gmail.com"
+    		firstname="James" lastname="Anderson" nickname="Jim" phone1="9728999191" phone2="[null]" phone3="[null]" 
+    		postcode="75010" stateprov="TX" dob="1982-09-05" 
+            createdt="2019-02-11 11:59:59"/>
+   	<customer custid="3" addr1="205 Ocean Way" addr2="[null]" city="Keller" country="US" email="wanders222@gmail.com"
+    		firstname="William" lastname="Anders" nickname="Bill" phone1="9728998888" phone2="[null]" phone3="[null]" 
+    		postcode="76244" stateprov="TX" dob="1980-11-15" 
+            createdt="2019-01-25 11:59:59"/>
+    <customer custid="4" addr1="3207 Pendery Lane" addr2="[null]" city="Grand Prairie" country="US" email="kellyjo838@gmail.com"
+    		firstname="Kelly" lastname="Lopez" nickname="[null]" phone1="9743389944" phone2="[null]" phone3="[null]" 
+    		postcode="75010" stateprov="TX" dob="1977-09-07" 
+            createdt="2019-08-15 11:59:59"/>
+</dataset>
