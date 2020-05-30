@@ -229,8 +229,11 @@ public class Customer {
 		return locstr;
 	}
 
-	public void setDobStr(String dobStr) {		
-		String[] dateParts = dobStr.split("-");
+	public void setDobStr(String dobStr) {
+		String[] dateParts = null;
+		if (dobStr != null) {
+			dateParts = dobStr.split("-");
+		}
 		if (dateParts != null && dateParts.length == 3) {
 			java.util.Calendar cal = java.util.Calendar.getInstance();
 			cal.set(Integer.parseInt(dateParts[0]),(Integer.parseInt(dateParts[1]) - 1),Integer.parseInt(dateParts[2]));

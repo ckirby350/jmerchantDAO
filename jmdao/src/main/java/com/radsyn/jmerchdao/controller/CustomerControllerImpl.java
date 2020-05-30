@@ -3,8 +3,11 @@ package com.radsyn.jmerchdao.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.radsyn.jmerchdao.catalog.CustomerCatalog;
 import com.radsyn.jmerchdao.catalog.CustomerCatalogImpl;
+import com.radsyn.jmerchdao.model.CustTest;
 import com.radsyn.jmerchdao.model.Customer;
 import com.radsyn.jmerchdao.repo.CustomerRepository;
 import com.radsyn.jmerchdao.service.CustomerServiceImpl;
@@ -25,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 
 import javax.annotation.Resource;
 
@@ -47,7 +52,27 @@ public class CustomerControllerImpl implements CustomerController {
 	
 	@Resource
     private CustomerServiceImpl xService;
+	
+	@Autowired
+    private com.radsyn.jmerchdao.kafka.KafkaMain.MessageProducer producer;
+	
+	@Autowired
+    private com.radsyn.jmerchdao.kafka.KafkaMain.MessageListener listener;
 
+	private CountDownLatch customerLatch = new CountDownLatch(1);
+	
+	public ResponseEntity<Customer> consumeByID(long id) {
+    	Customer xcust = xService.findById(id);   
+    	if (xcust == null) {
+			//log.info(typeName + " with id " + id + " not found");
+			return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+		}
+    	//CustTest ctest = new CustTest(xcust.getFirstName(), xcust.getLastName());
+    	producer.sendCustomerMessage(xcust);
+        
+    	return new ResponseEntity<Customer>(xcust, HttpStatus.OK);
+    }
+	
     @Transactional(readOnly = true)
     @Override
     public ResponseEntity<CustomerCatalog> getAll() {

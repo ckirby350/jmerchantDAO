@@ -39,4 +39,7 @@ public interface CustomerController {
     
     @DeleteMapping(value = "/customer/{id}")
 	public ResponseEntity<Customer> deleteEntity(@PathVariable("id") long id);
+    
+    @GetMapping(value = "/custkafka/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
+  	public ResponseEntity<Customer> consumeByID(@PathVariable("id") long id);
 }
